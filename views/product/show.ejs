@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show details</title>
+</head>
+
+<body>
+    <h1>Details for <b>
+            <%= items.name %>
+        </b> -<%=items._id%>
+    </h1>
+    <section>
+        <div>
+            the product fit in the <b>
+                <a href="/product?category=<%=items.category%>">
+                    <%=items.category%>
+                </a>
+            </b> category,
+        </div>
+        <div>
+            the product cost <b>
+                <%=items.price%>
+            </b> in US dollar
+        </div>
+        <div><a href="/product">Back to all items</a></div>
+        <div><a href="/product/<%=items._id%>/edit">Edit product</a></div>
+    </section>
+    <form action="/product/<%=items._id%>?_method=DELETE" method="POST">
+        <button>Delete product</button>
+    </form>
+
+</body>
+
+</html>
