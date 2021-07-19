@@ -3,7 +3,8 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 const product = require('./models/product');
-const { findById } = require('./models/product');
+const Farm = require('./models/farm')
+//const { findById } = require('./models/product');
 const methodOverride = require('method-override');
 const AppError = require('./AppError');
 
@@ -31,9 +32,83 @@ function wrapAsync(fn) {
         fn(req, res, next).catch(e => next(e))
     }
 }
+// Home 
 
+app.get('/', (req, res) => {
+    res.render('home')
+})
+
+//FARM ROUTES
+//all farms
+app.get('/farm', wrapAsync(async (req, res, next) => {
+    const { location } = req.query;
+    if (location) {
+        const items = await Farm.find({ location });
+        res.render('farm/index', { items, location })
+    } else {
+        const items = await Farm.find({});
+        res.render('farm/index', { items, location: 'All' })
+    }
+})
+)
+
+//add a new farm
+app.get('/farm/new', wrapAsync(async (req, res) => {
+    res.render('farm/new')
+}));
+
+app.post('/farm', wrapAsync(async (req, res, next) => {
+    const newFarm = new Farm(req.body)
+    await newFarm.save();
+    res.redirect('/farm')
+}));
+
+//show details about the farm
+app.get('/farm/:id', wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const farm = await Farm.findById(id).populate('product');
+    console.log(farm)
+    res.render('farm/show', { farm })
+}))
+//edit farm
+app.put('/farm/:id', wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const farm = await Farm.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
+    res.redirect(`/farm/${items._id}`)
+}))
+
+//delete farm
+app.delete('/farm/:id', wrapAsync(async (req, res) => {
+    const { id } = req.params
+    const deleteFarm = await Farm.findByIdAndDelete(id);
+    res.redirect('/farm');
+}))
+// add a product to the farm, we use original newproduct template
+app.get('/farm/:id/product/new', wrapAsync(async (req, res) => {
+    const { id } = req.params
+    const farm = await Farm.findById(id);
+    res.render('product/new', { categories, farm })
+}));
+app.post('/farm/:id/product', async (req, res) => {
+    const { name, price, category } = req.body
+    const newProduct = await new product({ name, price, category });
+    const { id } = req.params
+    const farm = await Farm.findById(id);
+    farm.product.push(newProduct)
+    newProduct.farm = farm
+    await newProduct.save();
+    await farm.save();
+    res.redirect(`/farm/${id}`);
+    //const farm = await Farm.findById(id);
+
+})
+
+
+//PRPODUCT ROUTES
 
 //both get and post routes to create a new product
+
+
 app.get('/product/new', (req, res) => {
     res.render('product/new', { categories });
 });

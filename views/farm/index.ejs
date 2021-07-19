@@ -6,37 +6,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <%=category%> Products
+        <%=location%> farms
     </title>
 </head>
 
 <body>
     <h1>
-        <%=category%> Products
+        <%=location%> Farms
     </h1>
     <div>
         <% for(let item of items){ %>
 
-            <li><a href="/product/<%=item._id%>">
+            <li><a href="/farm/<%=item._id%>">
                     <%= item.name %>
                 </a></li>
             <% } %>
 
 
-                <a href="/product/new">Add new product</a>
-                <% if(category !=='All' ){%>
-                    <a href="/product">Display all product</a>
+                <a href="/farm/new">Add new Farm</a>
+                <% if(location !=='All' ){%>
+                    <a href="/farm">Display all Farms</a>
                     <% } %>
     </div>
     <div>
         <button><a href="/">Home page</a></button>
     </div>
-    <div>
-        <button><a href="/farm/new">Find out about our Farms</a></button>
-    </div>
 
 
 
+</body>
 </body>
 
 </html>

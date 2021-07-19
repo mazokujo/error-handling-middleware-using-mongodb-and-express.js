@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Farm</title>
+</head>
+
+<body>
+    <h1>Details for <b>
+            <%= farm.name %>
+        </b> -<%=farm._id%>
+    </h1>
+    <section>
+        <div>
+            This farm is located in <b>
+                <a href="/farm?location=<%=farm.location%>">
+                    <%=farm.location%>
+                </a>
+            </b>
+        </div>
+        <div>Inquire about the farm using the email provided:
+            <b>
+                <%=farm.email%>
+            </b>
+        </div>
+        <h2>All products</h2>
+        <ul>
+            <% for(let singleProduct of farm.product){%>
+                <li>
+                    <b>
+                        <%= singleProduct.name %>
+                    </b>
+                </li>
+                <% } %>
+        </ul>
+
+        <div style="margin-bottom: 10px"><a href="/farm">Back to all Farm</a></div>
+        <div style="margin-bottom: 10px"><a href="/farm/<%=farm._id%>/product/new">Add a product to This Farm</a></div>
+        <div style="margin-bottom: 10px"><a href="/farm/<%=farm._id%>/edit">Edit Farm</a></div>
+    </section>
+    <form action="/farm/<%=farm._id%>?_method=DELETE" method="POST">
+        <button>Delete farm</button>
+    </form>
+
+
+
+</body>
+
+</html>

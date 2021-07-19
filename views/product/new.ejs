@@ -9,8 +9,11 @@
 </head>
 
 <body>
+    <h1>
+        <%=farm.name%>
+    </h1>
     <h1>Add a product</h1>
-    <form action="/product" method="POST">
+    <form action="/farm/<%=farm.id%>/product" method="POST" style="margin-bottom: 10px">
         <label for="name">Product's name</label>
         <input type="text" id="name" name="name" placeholder="Product's name">
         <label for="price">Price(unit)</label>
@@ -21,14 +24,13 @@
                 <option value="<%=category%>">
                     <%=category%>
                 </option>
-
                 <% } %>
 
         </select>
-        <button>Add your new product</button>
+        <button style="margin-bottom: 5px">Add your new product</button>
     </form>
 
-    <a href="/product">Back to All product</a>
+    <button style="margin-bottom: 5px"><a href="/product">Back to All product</a> </button>
 </body>
 
 </html>

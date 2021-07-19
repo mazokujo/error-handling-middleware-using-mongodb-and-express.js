@@ -13,7 +13,7 @@
             <%= items.name %>
         </b> -<%=items._id%>
     </h1>
-    <section>
+    <section style="margin-bottom:10px">
         <div>
             the product fit in the <b>
                 <a href="/product?category=<%=items.category%>">
@@ -26,10 +26,10 @@
                 <%=items.price%>
             </b> in US dollar
         </div>
-        <div><a href="/product">Back to all items</a></div>
-        <div><a href="/product/<%=items._id%>/edit">Edit product</a></div>
+        <div style="margin-bottom: 5px"><a href="/product">Back to all items</a></div>
+        <div style="margin-bottom: 5px"><a href="/product/<%=items._id%>/edit">Edit product</a></div>
     </section>
-    <form action="/product/<%=items._id%>?_method=DELETE" method="POST">
+    <form action="/product/<%=items._id%>?_method=DELETE" method="POST" style="margin-top: 10px">
         <button>Delete product</button>
     </form>
 
